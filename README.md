@@ -18,10 +18,10 @@ for example the following RDF file
 Generates the following cypher script
 
 ```
-CREATE (dbpediaowl_Person:owl_Class {name:"dbpediaowl_Person", uri:"http://dbpedia.org/ontology/Person", rdfs_label_it:"persona", rdfs_label_en:"person" })
-CREATE (schema_Person {name:"schema_Person", uri:"http://schema.org/Person" })
-CREATE (p312307766_jimkont:dbpediaowl_Person {name:"p312307766_jimkont", uri:"https://github.com/jimkont" })
-CREATE (owl_Class {name:"owl_Class", uri:"http://www.w3.org/2002/07/owl#Class" })
+CREATE (dbpediaowl_Person:owl_Class {rdfs_label_it:"persona", rdfs_label_en:"person", _id:"dbpediaowl_Person", _uri:"http://dbpedia.org/ontology/Person" })
+CREATE (schema_Person {_id:"schema_Person", _uri:"http://schema.org/Person" })
+CREATE (p312307766_jimkont:dbpediaowl_Person {_id:"p312307766_jimkont", _uri:"https://github.com/jimkont" })
+CREATE (owl_Class {_id:"owl_Class", _uri:"http://www.w3.org/2002/07/owl#Class" })
 CREATE
 (dbpediaowl_Person)-[:owl_equivalentClass]->(schema_Person),
 (dbpediaowl_Person)-[:rdf_type]->(owl_Class),
@@ -35,7 +35,7 @@ For the prefix we try the local prefix declarations in the RDF graph (if they ex
 If no prefix is found, a numeric based prefix is used.
 
 Whenever there is an `rdf:type` statement the program tries to assign the class to the node e.g. `jimkont:Person`.
-For every node we havee 2 additional values, a `label` that matches the node name and a `uri` with the full URI.
+For every node we havee 2 additional values, a `_id` that matches the node name and a `_uri` with the full URI.
 
 we follow the same approach for naming the property labels, e.g. `-[:rdf_type]->`
 

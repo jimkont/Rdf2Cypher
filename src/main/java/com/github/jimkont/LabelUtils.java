@@ -2,15 +2,12 @@ package com.github.jimkont;
 
 import org.aksw.rdfunit.prefix.LOVEndpoint;
 import org.aksw.rdfunit.prefix.SchemaEntry;
-import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.github.jimkont.EscapeUtils.escapeStringValue;
@@ -21,6 +18,9 @@ import static com.github.jimkont.EscapeUtils.escapeStringValue;
  */
 public final class LabelUtils {
     private LabelUtils(){}
+
+    private static Set<String> stringValueDatatypes = new HashSet<>(Arrays.asList(
+            RDF.langString.getURI(), "http://www.w3.org/2001/XMLSchema#string"));
 
     private static final Map<String, String> lovPrefixes = createLOVPrefixes();
     private static Map<String, String> createLOVPrefixes() {
@@ -49,14 +49,14 @@ public final class LabelUtils {
 
     /**
      * get the value of a literal
+     * TODO check & align all datatypes
      */
     public static String getLiteralValue(RDFNode node) {
         String value = node.toString();
         if (node.isLiteral()) {
             Literal nodeL = node.asLiteral();
             value = nodeL.getLexicalForm();
-            RDFDatatype dt = nodeL.getDatatype();
-            if (nodeL.getDatatypeURI().equals(RDF.langString.getURI()) || nodeL.getDatatypeURI().equals("http://www.w3.org/2001/XMLSchema#string")) {
+            if (stringValueDatatypes.contains(nodeL.getDatatypeURI())) {
                 value = "\"" + escapeStringValue(value) + "\"";
             }
         }

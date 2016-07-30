@@ -56,7 +56,7 @@ public class Owl2Neo4J {
             cypherStatements.add(stringBuilder.toString());
         });
 
-        cypherStatements.add("CREATE");
+        cypherStatements.add("CREATE\n");
 
         cypherStatements.add(
                 nodes.stream().flatMap(r -> r.getRelationships().stream())

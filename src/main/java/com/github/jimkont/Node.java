@@ -30,10 +30,6 @@ public class Node {
     public List<PropertyLiteral> getPropertyLiteralPairs(){
         List<PropertyLiteral> propertyLiteralPairs = new LinkedList<>();
 
-        propertyLiteralPairs.add(new PropertyLiteral("name", "\""+getResourceLabel(resource)+"\""));
-        propertyLiteralPairs.add(new PropertyLiteral("uri", "\""+resource.getURI()+"\""));
-
-
         resource.listProperties().toList().stream()
                 .filter( s -> s.getObject().isLiteral())
                 .forEach( rwl -> {
@@ -44,6 +40,9 @@ public class Node {
                                     getPropertyLabel(predicate, object),
                                     getLiteralValue(object)));
                 });
+
+        propertyLiteralPairs.add(new PropertyLiteral("_id", "\""+getResourceLabel(resource)+"\""));
+        propertyLiteralPairs.add(new PropertyLiteral("_uri", "\""+resource.getURI()+"\""));
 
         return propertyLiteralPairs;
     }
