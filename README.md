@@ -40,7 +40,7 @@ For every node we havee 2 additional values, a `label` that matches the node nam
 we follow the same approach for naming the property labels, e.g. `-[:rdf_type]->`
 
 ## How to run it
-Using maven use
+Use the following commands (needs maven)
 ```
 owl2neo4j <owl/rdf uri> <outputfile>
 
