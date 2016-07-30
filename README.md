@@ -9,8 +9,8 @@ for example the following RDF file
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://dbpedia.org/ontology/Person> a owl:Class ;
-    rdfs:label "Person"@en ;
-    rdfs:label "Person"@en ;
+    rdfs:label "person"@en ;
+    rdfs:label "persona"@it ;
     owl:equivalentClass <http://schema.org/Person> .
 
 <https://github.com/jimkont> a <http://dbpedia.org/ontology/Person> .
@@ -18,7 +18,7 @@ for example the following RDF file
 Generates the following cypher script
 
 ```
-CREATE (dbpediaowl_Person:owl_Class {name:"dbpediaowl_Person", uri:"http://dbpedia.org/ontology/Person", rdfs_label_en:"Person" })
+CREATE (dbpediaowl_Person:owl_Class {name:"dbpediaowl_Person", uri:"http://dbpedia.org/ontology/Person", rdfs_label_it:"persona", rdfs_label_en:"person" })
 CREATE (schema_Person {name:"schema_Person", uri:"http://schema.org/Person" })
 CREATE (p312307766_jimkont:dbpediaowl_Person:owl_Class {name:"p312307766_jimkont", uri:"https://github.com/jimkont" })
 CREATE (owl_Class {name:"owl_Class", uri:"http://www.w3.org/2002/07/owl#Class" })
@@ -45,6 +45,7 @@ Use the following commands (needs maven)
 owl2neo4j <owl/rdf uri> <outputfile>
 
 e.g.
+owl2neo4j test.ttl test.cypher
 owl2neo4j http://protege.stanford.edu/ontologies/pizza/pizza.owl pizza.cypher
 owl2neo4j http://downloads.dbpedia.org/2015-10/dbpedia_2015-10.owl dbpedia.cypher
 ```

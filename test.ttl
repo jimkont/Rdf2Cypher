@@ -1,0 +1,9 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://dbpedia.org/ontology/Person> a owl:Class ;
+    rdfs:label "person"@en ;
+    rdfs:label "persona"@it ;
+    owl:equivalentClass <http://schema.org/Person> .
+
+<https://github.com/jimkont> a <http://dbpedia.org/ontology/Person> .
