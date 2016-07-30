@@ -83,7 +83,7 @@ public final class LabelUtils {
             case 0 :
                 return localName;
             case 1 :
-                return localName + ":" + getResourceLabelWithType(resourceTypes.get(0));
+                return localName + ":" + getResourceLabel(resourceTypes.get(0));
             // when multiple try to get the most direct one from rdfs:subClassOf
             default:
                 return localName;

@@ -20,7 +20,7 @@ Generates the following cypher script
 ```
 CREATE (dbpediaowl_Person:owl_Class {name:"dbpediaowl_Person", uri:"http://dbpedia.org/ontology/Person", rdfs_label_it:"persona", rdfs_label_en:"person" })
 CREATE (schema_Person {name:"schema_Person", uri:"http://schema.org/Person" })
-CREATE (p312307766_jimkont:dbpediaowl_Person:owl_Class {name:"p312307766_jimkont", uri:"https://github.com/jimkont" })
+CREATE (p312307766_jimkont:dbpediaowl_Person {name:"p312307766_jimkont", uri:"https://github.com/jimkont" })
 CREATE (owl_Class {name:"owl_Class", uri:"http://www.w3.org/2002/07/owl#Class" })
 CREATE
 (dbpediaowl_Person)-[:owl_equivalentClass]->(schema_Person),
