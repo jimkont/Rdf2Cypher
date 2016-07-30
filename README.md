@@ -52,9 +52,9 @@ owl2neo4j http://downloads.dbpedia.org/2015-10/dbpedia_2015-10.owl dbpedia.cyphe
 
 ## TODOs
 this is a very first draft and there can be many cases where it fails e.g.
- * blank nodes are handles but, as always they do not look nice.
- * When a node has multiple types, we need move clever consolidation.
+ * blank nodes are handled but, as always they do not look nice.
+ * When a node has multiple types, smarter consolidation is needed.
  * prefix handling can be improved to enhance readability. 
    This is a general purpose converter and in special cases prefixing can be redundant.
- * String escaping needs improvements for proper 
+ * String escaping needs improvements to avoid syntax errors 
  * It is quite rough with datatypes, needs proper alignment
