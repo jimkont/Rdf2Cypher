@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>Owl2Neo4j</groupId>
+    <artifactId>com.github.jimkont</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <!-- Project Settings -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <java.version.javadoc>http://java.sun.com/javase/8/docs/api/</java.version.javadoc>
+        <file.encoding>UTF-8</file.encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <org-apache-jena-version>3.1.0</org-apache-jena-version>
+        <rdfunit-version>0.8</rdfunit-version>
+    </properties>
+
+    <dependencies>
+
+
+
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>${org-apache-jena-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aksw.rdfunit</groupId>
+            <artifactId>rdfunit-core</artifactId>
+            <version>${rdfunit-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aksw.rdfunit</groupId>
+            <artifactId>rdfunit-io</artifactId>
+            <version>${rdfunit-version}</version>
+        </dependency>
+
+
+
+        <!-- Unit testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.5.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+    <plugins>
+
+
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+            <configuration>
+                <source>${maven.compiler.source}</source>
+                <target>${maven.compiler.target}</target>
+            </configuration>
+        </plugin>
+
+
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>1.4.1</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <requireJavaVersion>
+                                <version>${java.version}</version>
+                            </requireJavaVersion>
+                        </rules>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+
+    </plugins>
+
+    </build>
+
+</project>
