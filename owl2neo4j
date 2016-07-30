@@ -1,0 +1,11 @@
+#!/bin/bash
+
+MAIN_CLS="com.github.jimkont.Main"
+
+
+if [ ! -d "target" ]; then
+  echo "First run, compiling code..."
+  mvn clean install
+fi
+
+mvn exec:java -q -Dexec.mainClass="$MAIN_CLS" -Dexec.args="$*"
