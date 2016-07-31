@@ -3,9 +3,7 @@ package com.github.jimkont;
 import org.aksw.rdfunit.prefix.LOVEndpoint;
 import org.aksw.rdfunit.prefix.SchemaEntry;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.vocabulary.RDFS;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,12 +15,14 @@ import static com.github.jimkont.EscapeUtils.escapeStringValue;
  * @since 29/7/2016 11:07 μμ
  */
 public final class LabelUtils {
-    private LabelUtils(){}
 
     private static Set<String> stringValueDatatypes = new HashSet<>(Arrays.asList(
             RDF.langString.getURI(), "http://www.w3.org/2001/XMLSchema#string"));
 
     private static final Map<String, String> lovPrefixes = createLOVPrefixes();
+
+    private LabelUtils(){}
+
     private static Map<String, String> createLOVPrefixes() {
         return new LOVEndpoint().getAllLOVEntries().stream()
                 .distinct()
@@ -79,49 +79,15 @@ public final class LabelUtils {
                 .filter(r -> !r.isAnon())
                 .collect(Collectors.toList());
 
-        switch (resourceTypes.size()) {
-            case 0 :
-                return localName;
-            case 1 :
-                return localName + ":" + getResourceLabel(resourceTypes.get(0));
-            // when multiple try to get the most direct one from rdfs:subClassOf
-            default:
-                return localName;
-            //throw new IllegalArgumentException("multiple types");
-        }
-    }
+        StringBuilder sb = new StringBuilder();
 
-    private static String consolidateMultipleClasses(List<Resource> classes) {
-        return classes.stream()
-                .filter(c -> c != OWL.Thing)
-                //TODO filter superclasses
-                .map(LabelUtils::getResourceLabel)
-                .findFirst()
-                .orElse("");
-
-
-    }
-
-    /**
-     *get a lit of all superclasses
-     * TODO fix hierarchy loops
-     */
-    private static List<Resource> getSuperClasses(Resource resource) {
-        List<Resource> superClasses = new LinkedList<>();
-
-        // get direct superclasses
-        List<Resource> temp = resource.listProperties(RDFS.subClassOf).toList().stream()
-                .map(Statement::getObject)
-                .filter(RDFNode::isResource)
-                .map(RDFNode::asResource)
-                .collect(Collectors.toList());
-
-        temp.forEach( c -> {
-            superClasses.add(c);
-            superClasses.addAll(getSuperClasses(c));
+        sb.append(localName);
+        resourceTypes.forEach(r ->{
+            sb.append(":");
+            sb.append(getResourceLabel(r));
         });
 
-        return superClasses;
+        return sb.toString();
     }
 
     /**

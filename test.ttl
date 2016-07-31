@@ -6,4 +6,4 @@
     rdfs:label "persona"@it ;
     owl:equivalentClass <http://schema.org/Person> .
 
-<https://github.com/jimkont> a <http://dbpedia.org/ontology/Person> .
+<https://github.com/jimkont> a <http://dbpedia.org/ontology/Person>, <http://schema.org/Person> .

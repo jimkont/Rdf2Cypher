@@ -11,7 +11,7 @@ for example the following RDF file
 <http://dbpedia.org/ontology/Person> a owl:Class ;
     rdfs:label "person"@en ;
     rdfs:label "persona"@it ;
-    owl:equivalentClass <http://schema.org/Person> .
+    owl:equivalentClass <http://schema.org/Person>, <http://schema.org/Person> .
 
 <https://github.com/jimkont> a <http://dbpedia.org/ontology/Person> .
 ```
@@ -20,11 +20,12 @@ Generates the following cypher script
 ```
 CREATE (dbpediaowl_Person:owl_Class {rdfs_label_it:"persona", rdfs_label_en:"person", _id:"dbpediaowl_Person", _uri:"http://dbpedia.org/ontology/Person" })
 CREATE (schema_Person {_id:"schema_Person", _uri:"http://schema.org/Person" })
-CREATE (p312307766_jimkont:dbpediaowl_Person {_id:"p312307766_jimkont", _uri:"https://github.com/jimkont" })
+CREATE (p312307766_jimkont:schema_Person:dbpediaowl_Person {_id:"p312307766_jimkont", _uri:"https://github.com/jimkont" })
 CREATE (owl_Class {_id:"owl_Class", _uri:"http://www.w3.org/2002/07/owl#Class" })
 CREATE
 (dbpediaowl_Person)-[:owl_equivalentClass]->(schema_Person),
 (dbpediaowl_Person)-[:rdf_type]->(owl_Class),
+(p312307766_jimkont)-[:rdf_type]->(schema_Person),
 (p312307766_jimkont)-[:rdf_type]->(dbpediaowl_Person)
 ```
 
@@ -34,8 +35,8 @@ To avoid name clashes the program names the nodes with the local name of the URI
 For the prefix we try the local prefix declarations in the RDF graph (if they exist, e.g. in turtle or n3) or consolidate with the LOV service.
 If no prefix is found, a numeric based prefix is used.
 
-Whenever there is an `rdf:type` statement the program tries to assign the class to the node e.g. `jimkont:Person`.
-For every node we havee 2 additional values, a `_id` that matches the node name and a `_uri` with the full URI.
+Whenever there is an `rdf:type` statement the program tries to assign the class to the node as label e.g. `jimkont:Person`.
+For every node we have 2 additional values, a `_id` that matches the node name and a `_uri` with the full URI.
 
 we follow the same approach for naming the property labels, e.g. `-[:rdf_type]->`
 
@@ -53,7 +54,6 @@ owl2neo4j http://downloads.dbpedia.org/2015-10/dbpedia_2015-10.owl dbpedia.cyphe
 ## TODOs
 this is a very first draft and there can be many cases where it fails e.g.
  * blank nodes are handled but, as always they do not look nice.
- * When a node has multiple types, smarter consolidation is needed.
  * prefix handling can be improved to enhance readability. 
    This is a general purpose converter and in special cases prefixing can be redundant.
  * String escaping needs improvements to avoid syntax errors 
