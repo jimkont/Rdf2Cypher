@@ -58,3 +58,4 @@ this is a very first draft and there can be many cases where it fails e.g.
    This is a general purpose converter and in special cases prefixing can be redundant.
  * String escaping needs improvements to avoid syntax errors 
  * It is quite rough with datatypes, needs proper alignment
+ * Inference is always tricky, this implementation does not perform any inferencing, this should be done as a prior step
